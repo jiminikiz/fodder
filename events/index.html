@@ -1,0 +1,19 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <button id="clickMe">Click Me!</button>
+        <script>
+            function clickMeHandler(event) {
+                console.log(event)
+            }
+
+            document.getElementById('clickMe').onclick = clickMeHandler
+            // document.getElementById('clickMe')
+                // .addEventListener('click', clickMeHandler)
+            // .addEventListener('click', function(event){
+            //     console.log(event)
+            // })
+        </script>
+    </body>
+</html>

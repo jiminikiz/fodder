@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="angular.playground">
+    <head>
+        <title>Angular</title>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script>
+            angular.module('angular.playground', [])
+                .controller('PlaygroundController', playgroundController);
+
+            playgroundController.$inject = ["$scope",'$http']
+
+
+            function playgroundController($scope, $http) {
+                this.people = [
+                    { name: 'Casey' },
+                    { name: 'Andrew' },
+                    { name: 'Brandon' },
+                    { name: 'Dude Man Bro' }
+                ]
+
+                this.toggle = true;
+                this.placeholder = 'Student'
+                this.onToggle = () => {
+                    console.log('fired change!')
+                    this.placeholder = (this.toggle) ? 'Student':'Instructor'
+                }
+                this.logPokemon = function(res) {
+                    console.log(res);
+                }
+
+                $http.get('http://pokeapi.co/api/v2/pokemon/1')
+                    .then(this.logPokemon)
+
+                // window.playground = this;
+            }
+        </script>
+    </head>
+    <body>
+        <div ng-controller="PlaygroundController as playground">
+            <!-- <input type="checkbox" ng-model="playground.toggle" ng-change="playground.onToggle()"/> -->
+            <form class="form-inline">
+                <input type="checkbox" ng-model="playground.toggle"/>
+                <input class="form-control" type="text" ng-model="playground.textValue" placeholder="{{ playground.placeholder }}"/>
+            </form>
+
+            <ul>
+                <li ng-repeat="person in playground.people | filter: playground.textValue | orderBy: 'name'">
+                    {{ person.name }}
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

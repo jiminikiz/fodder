@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="panels.data">
+    <head>
+        <title>Panel Demo</title>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script>
+            angular
+            .module('panels.data', [])
+            .controller('PanelsController', ['$http', function ($http) {
+                var Panels = this
+
+                Panels.data = []
+                Panels.isArray = Array.isArray
+                Panels.isString = function(item) {
+                    return item.constructor === String
+                }
+
+                $http.get('/data')
+                    .then(function(res){
+                        // console.debug(res)
+                        Panels.data = res.data
+                    }, function(error){
+                        console.error(error)
+                    })
+            }]);
+        </script>
+        <style>
+        </style>
+    </head>
+    <body ng-controller="PanelsController as pCtrl">
+        <div class="panels" ng-repeat="panel in pCtrl.data">
+            <table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th ng-repeat="header in panel.headers">{{ header }}</th>
+                    </tr>
+                    <tr ng-repeat="row in panel.data">
+                        <!-- <td ng-repeat="cell in row">
+                            <span ng-repeat="element in cell">{{ element }}</span>
+                        </td> -->
+                        <td ng-repeat="cell in row">
+                            {{ cell }}
+                        </td>
+                    <tr>
+                </thead>
+            </table>
+        </div>
+    </body>
+</html>

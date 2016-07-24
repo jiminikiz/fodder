@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <style>
+            body {
+                position: relative;
+            }
+            .box {
+                width: 200px;
+                height: 200px;
+                background-color: #40454A;
+                transition: all 2s ease-out;
+                position: absolute;
+                opacity: 1;
+                z-index: 1;
+            }
+            .box.red {
+                background-color: red;
+                z-index: 0;
+            }
+            .box.rotate {
+                transform: rotateX(180deg);
+            }
+            .box.fade {
+                opacity: 0;
+            }
+            .box.fade.in {
+                opacity: 1;
+            }
+        </style>
+        <script>
+            function flip() {
+                document.querySelectorAll('.box')[0].className = "box fade rotate"
+                document.querySelectorAll('.box')[1].className = "box fade in red rotate"
+            }
+            function restore() {
+                document.querySelectorAll('.box')[0].className = "box"
+                document.querySelectorAll('.box')[1].className = "box fade red"
+            }
+        </script>
+    </head>
+    <body>
+        <div class="box"></div>
+        <div class="box fade red"></div>
+    </body>
+</html>

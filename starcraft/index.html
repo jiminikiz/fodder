@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Starcraft</title>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
+    </head>
+    <body ng-app="starcraft">
+        <div ng-controller="Pagination as pages">
+            <button ng-repeat="button in pages.buttons">
+                {{ button }}
+            </button>
+        </div>
+    </body>
+</html>

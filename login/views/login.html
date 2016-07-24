@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title> Login </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/login.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="/js/login.js"></script>
+    </head>
+    <body class="containter">
+        <form id="loginForm" class="well" method="POST">
+            <h1> Login! </h1><%= user %>
+            <fieldset class="form-group">
+                <label>Email</label>
+                <div class="input-group">
+                    <div class="input-group-addon">@</div>
+                    <input class="form-control" type="text" />
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <label>Password</label>
+                <input class="form-control" type="password" />
+            </fieldset>
+            <button class="btn btn-primary" type="submit">Login</buton>
+        </form>
+    </body>
+</html>

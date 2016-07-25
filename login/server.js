@@ -1,3 +1,5 @@
+require('colors')
+
 var express = require('express'), // our framework!
     bodyParser = require('body-parser'), // used for POST routes to obtain the POST payload as a property on `req`
     path = require('path'), // used to resolve paths across OSes
@@ -15,7 +17,8 @@ var express = require('express'), // our framework!
             secure: false       // when true, cookie will only be sent over SSL;
         }
     }),
-    app = express()
+    app = express(),
+    port = process.env.PORT||8888
 
 //
 app.use(logger('dev'))
@@ -26,6 +29,6 @@ app.engine('html', ejs.renderFile)
 
 app.post('*', bodyParser.json(), bodyParser.urlencoded({ extended:true }))
 
-require('routes')(app)
+require('./routes')(app)
 
-app.listen(process.env.PORT||8888)
+app.listen(port, () => console.log('Login Server Started on port:', port.toString().cyan))

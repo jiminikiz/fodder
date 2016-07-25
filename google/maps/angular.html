@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="Mapp">
+    <head>
+        <title>Simple Map</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                height: 50%;
+            }
+        </style>
+    </head>
+    <body ng-contoller="MappController as mappCtrl">
+        <h1>{{ mappCtrl.title }}</h1>
+        <div id="map"></div>
+        <script src="//maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+        <script src="/mapp.js"></script>
+    </body>
+</html>

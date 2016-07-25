@@ -5,12 +5,13 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start server.js"
+    "start": "pm2 start server.js",
+    "dev": "nodemon server.js"
   },
   "author": "jiminikiz",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^0.8.7",
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "client-sessions": "^0.7.0",
     "colors": "^1.1.2",

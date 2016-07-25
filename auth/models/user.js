@@ -1,5 +1,4 @@
-var mongoose = require('mongoose'),
-    bcrypt = require('bcrypt')
+var mongoose = require('mongoose')
 
 module.exports = mongoose.model('User', mongoose.Schema({
     name     : String,

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="ngMapp.example">
+    <head>
+        <title>Simple Map</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <script src="//maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+        <script src="ng-maps.min.js"></script>
+        <script src="ngMapp.js"></script>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .short-map {
+                height: 50%;
+            }
+        </style>
+    </head>
+    <body ng-contoller="MappController as mappCtrl">
+        <map ng-transclude class="short-map"></map>
+        <h1>{{ mappCtrl.title }}</h1>
+        <p><a href="/">Vanilla Example</a></p>
+        <p><a href="/angular">Angular Example</a></p>
+    </body>
+</html>

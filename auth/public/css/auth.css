@@ -15,5 +15,5 @@ form {
 .tab-content {border: 1px solid #ddd;border-top: none;}
 
 .alert {
-    margin-bottom: 0
+    margin: 20px 0;
 }

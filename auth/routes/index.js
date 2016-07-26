@@ -1,11 +1,10 @@
 'use strict'
 
-var Auth = require('./auth'),
-    Users = require('./users')
+var Auth = require('./auth')
 
 module.exports = function(app) {
     // SITE ROOT
-    app.get('/', (req, res)=>{
+    app.get('/', (req, res) => { // replace this with a landing or home page
         if( req.session.user ) {
             res.redirect('/dashboard')
         } else {
@@ -13,12 +12,15 @@ module.exports = function(app) {
         }
     })
 
-    app.get('/login', Auth.render)
-    app.post('/login', Auth.login)
-    app.post('/register', Users.create)
+    app.get('/login', Auth.render) // route for the login page
+    app.get('/logout', Auth.logout) // route for logging out
+
+    app.post('/login', Auth.login) // form request emdpoint for loggin in
+    app.post('/register', Auth.register) // form request endpoint for user registration
 
     // DAHSBOARD
-    app.get('/dashboard', (req, res)=>{
-        res.render('/dashboard', req.session)
+    app.all('/dashboard*', Auth.session) // protect all dashboard routes from unauthorized users
+    app.get('/dashboard', (req, res) => { // renders the dashboard
+        res.render('dashboard.html', req.session)
     })
 }

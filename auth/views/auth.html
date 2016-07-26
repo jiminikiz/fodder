@@ -41,7 +41,7 @@
                             </div>
                         </fieldset>
                         <input class="btn btn-primary" type="submit" value="Login">
-                        <p class="alert">{{ auth.message }}</p>
+                        <p ng-class="auth.login.alert">{{ auth.login.message }}</p>
                     </form>
                 </div>
                 <div id="register" role="tabpanel" class="tab-pane">
@@ -61,15 +61,8 @@
                                 <input required placeholder="Create a password" class="form-control" type="password" ng-model="auth.payload.password"/>
                             </div>
                         </fieldset>
-                        <fieldset class="form-group">
-                            <label class="sr-only" for="password">Password</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input required placeholder="Confirm your password" class="form-control" type="password" ng-model="auth.payload.confirm"/>
-                            </div>
-                        </fieldset>
                         <button class="btn btn-primary" type="submit">Register</button>
-                        <p class="alert">{{ auth.message }}</p>
+                        <p ng-class="auth.register.alert">{{ auth.register.message }}</p>
                     </form>
                 </div>
             </div>

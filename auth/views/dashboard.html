@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app.dashboard">
     <head>
         <title>Dashboard</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -8,19 +8,13 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
-        <script>
-            angular.module('app', [])
-                .controller('appController', appController);
-
-            appController.$inject = ["$scope",'$http']
-
-            function appController($scope, $http) {
-            }
-        </script>
+        <script src="/js/dashboard.js"></script>
     </head>
-    <body>
-        <div ng-controller="appController as appTroller">
-
+    <body ng-controller="DashboardController as dashboard" class="container">
+        <div class="jumbotron">
+          <h1>Welcome to your dashboard!</h1>
+          <p>One day this page will be filled with imagination.</p>
+          <a href="/logout" class="btn btn-lg btn-danger">Logout</a>
         </div>
     </body>
 </html>

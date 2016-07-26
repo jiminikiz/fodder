@@ -1,8 +1,8 @@
 'use strict'
 
 var User = require('../models/user'),
-    bcrypt = require('bcryptjs'),
-    errors = {
+    bcrypt = require('bcryptjs'), // used for encryption
+    errors = { // response errors
         general: {
             status: 500,
             message: 'Backend error'
@@ -15,7 +15,11 @@ var User = require('../models/user'),
 
 module.exports = {
     render: (req, res) => {
-        res.render('auth.html', req.session)
+        res.render('auth.html', req.session) // render the authenticaiton page (register/login)
+    },
+    logout: (req, res) => {
+        req.session.user = null // clears the users cookie session
+        res.redirect('/login')
     },
     login: (req, res) => {
         User.findOne({
@@ -41,10 +45,31 @@ module.exports = {
                         res.status(403).send(errors.login)
                     } else {
                         req.session.user = user // set the user in the session!
-                        res.send(user)
+                        delete user.password; // remove the hashed password before sending back the result
+                        res.send(user) // send the
                     }
                 })
             }
         });
+    },
+    register: (req, res)=>{
+        var newUser = new User(req.body)
+
+        newUser.save((err, user)=>{
+            if(err) {
+                console.error('ERROR saving newUser:', err)
+                res.status(500).send(errors.general)
+            } else {
+                req.session.user = user
+                res.send(user)
+            }
+        })
+    },
+    session: (req, res, next) => {
+        if( req.session.user ) {
+            next()
+        } else {
+            res.redirect('/login')
+        }
     }
 }

@@ -1,6 +1,6 @@
-angular.module('dashboard', [])
-    .controller(Dashboard)
+angular.module('app.dashboard', [])
+    .controller('DashboardController', Dashboard);
 
 function Dashboard() {
-    this.title = "Welcome!"
+    console.info('Dashboard.initialized')
 }

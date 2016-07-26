@@ -45,17 +45,17 @@ module.exports = {
                         res.status(403).send(errors.login)
                     } else {
                         req.session.user = user // set the user in the session!
-                        delete user.password; // remove the hashed password before sending back the result
+                        delete user.password // remove the hashed password before sending back the result
                         res.send(user) // send the
                     }
                 })
             }
-        });
+        })
     },
-    register: (req, res)=>{
+    register: (req, res) => {
         var newUser = new User(req.body)
 
-        newUser.save((err, user)=>{
+        newUser.save((err, user) => {
             if(err) {
                 console.error('ERROR saving newUser:', err)
                 res.status(500).send(errors.general)

@@ -21,7 +21,7 @@ var express = require('express'), // our framework!
     app = express(), // initialize express
     port = process.env.PORT||8888 // server port
 
-mongoose.connect('mongodb://localhost/donuts', ( error )=>{
+mongoose.connect('mongodb://localhost/donuts', ( error ) => {
     if( error ) {
         console.error('ERROR starting mongoose!', error)
         process.exit(128)
@@ -49,4 +49,6 @@ app.post('*', bodyParser.json(), bodyParser.urlencoded({ extended:true }))
 require('./routes')(app) // do all the routing stuff in a separate file by passing a reference of the app!
 
 // start the server
-app.listen(port, ()=>console.log('Login Server Started on port:', port.toString().cyan))
+app.listen(port, () => {
+    console.log('Login Server Started on port:', port.toString().cyan)
+})

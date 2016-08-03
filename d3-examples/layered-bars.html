@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Layered Bar Chart</title>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <style>
+        #chart {
+            position: relative;
+        }
+        #chart .layer {
+            font-size: 0.5em;
+            font-family: sans-serif;
+            color: white;
+            text-align: right;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        #chart .layer.blue {
+            background-color: steelblue;
+        }
+        #chart .layer.red {
+            background-color: indianred;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+    <button id="update">Update</button>
+    <script>
+        var scale = d3.scale.linear()
+            .domain([0, 50])
+            .range([0, 100]);
+
+        function draw(data1, data2) {
+            var bars = d3.select("#chart")
+                .selectAll("div.layer.blue")
+                .attr("id","chart")
+                .data(data1);
+
+            // enter selection
+            bars.enter()
+                .append("div")
+                .attr('class','layer blue');
+
+            // update selection
+            bars.style("width", barScale).text(barText);
+
+            // exit selection
+            bars.exit().remove();
+
+            var bars2 = d3.select("#chart")
+                .selectAll("div.layer.red")
+                .attr("id","chart")
+                .data(data2)
+
+            bars2.enter()
+                .append("div")
+                .attr('class','layer red');
+
+            bars2.style("width", barScale). style("top", topper).text(barText);
+
+            bars2.exit().remove();
+        }
+
+        function update(newValues1, newValues2) {
+            var data1 = newValues1||[4, 8, 15, 16, 23, 42],
+                data2 = newValues2||[2, 5, 9, 4, 10, 22];
+
+            draw(data1, data2);
+        };
+
+        function topper(d,i) {
+            return i*24 +'px';
+        }
+        function barScale(d) {
+            return scale(d) + "%";
+        }
+        function barText(d) {
+            return d;
+        }
+
+        window.onload = draw([10, 10, 10, 10, 10, 10],[5, 5, 5, 5, 5, 5]);
+
+        d3.select('#update').on("click", update);
+    </script>
+</body>
+</html>

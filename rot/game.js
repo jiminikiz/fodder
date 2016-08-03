@@ -4,7 +4,7 @@ window.onload = function() {
         alert("The rot.js library isn't supported by your browser.");
     } else {
         // Create a display 80 characters wide and 20 characters tall
-        var display = new ROT.Display({width:80, height:20});
+        var display = new ROT.Display({ width:80, height:20 });
         var container = display.getContainer();
         // Add the container to our HTML page
         document.body.appendChild(container);
@@ -24,3 +24,5 @@ window.onload = function() {
         }
     }
 }
+
+console.log('Hello')

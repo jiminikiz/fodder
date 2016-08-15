@@ -2,10 +2,10 @@
 var socket = io();
 
 // Listening for the 'tweet' socket event emitted by the server
-// socket.on("tweeter", function(data){
-//     console.log(data)
-//     document.body.innerText += data.text + '\n'
-// })
+socket.on("tweeter", function(data){
+    console.log(data)
+    document.body.innerText += data.text + '\n'
+})
 
 // setInterval(function(){
 // 	socket.emit('number', Math.random())

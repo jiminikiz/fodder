@@ -10,7 +10,6 @@
 
             playgroundController.$inject = ["$scope",'$http']
 
-
             function playgroundController($scope, $http) {
                 this.people = [
                     { name: 'Casey' },
@@ -19,14 +18,25 @@
                     { name: 'Dude Man Bro' }
                 ]
 
+                // this.zipcode = 80021;
+                // this.city = 'Westminster';
+
+
                 this.toggle = true;
                 this.placeholder = 'Student'
+
+                this.profileFormShow = false;
+
                 this.onToggle = () => {
                     console.log('fired change!')
                     this.placeholder = (this.toggle) ? 'Student':'Instructor'
                 }
                 this.logPokemon = function(res) {
                     console.log(res);
+
+                    this.zipcode = res.data.zipcode
+                    this.profileFormShow = true;
+
                 }
 
                 $http.get('http://pokeapi.co/api/v2/pokemon/1')
@@ -39,10 +49,16 @@
     <body>
         <div ng-controller="PlaygroundController as playground">
             <!-- <input type="checkbox" ng-model="playground.toggle" ng-change="playground.onToggle()"/> -->
-            <form class="form-inline">
+            <!-- <form class="form-inline">
                 <input type="checkbox" ng-model="playground.toggle"/>
                 <input class="form-control" type="text" ng-model="playground.textValue" placeholder="{{ playground.placeholder }}"/>
+            </form> -->
+
+            <form class="form-inline">
+                <input class="form-control" type="text" ng-model="playground.zipcode"/>
+                <input class="form-control" type="text" ng-model="playground.city"/>
             </form>
+
 
             <ul>
                 <li ng-repeat="person in playground.people | filter: playground.textValue | orderBy: 'name'">

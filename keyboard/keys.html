@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html ng-module="module.keyboard">
+    <head>
+        <title>Keyboard</title>
+        <script src="/module.keyboard.js"></script>
+    </head>
+    <body ng-controller="controller.keyboard as keyboard">
+        <div class="keyboard">
+            <p ng-repeat="key in keyboard.keys">{{ key.name }}</p>
+        </div>
+    </body>
+</html>

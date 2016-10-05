@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html ng-module="module.keyboard">
+<html ng-app="module.keyboard">
     <head>
         <title>Keyboard</title>
+        <link rel="stylesheet" href="/keyboard.css">
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
         <script src="/module.keyboard.js"></script>
     </head>
     <body ng-controller="controller.keyboard as keyboard">
         <div class="keyboard">
-            <p ng-repeat="key in keyboard.keys">{{ key.name }}</p>
+            <key ng-repeat="key in keyboard.keys" class="{{ key.name }}" data-keycode="{{ key.code }}">
+                <span ng-bind-html="key.symbol || key.name"></span>
+            </key>
         </div>
     </body>
 </html>

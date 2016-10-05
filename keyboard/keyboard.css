@@ -1,0 +1,12 @@
+key {
+    display: inline-block;
+    height: 40px;
+    background-color: #efefef;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+key:hover {
+    background-color: #fefefe;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="module.repeat">
+    <head>
+        <title>Angular</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+        <script>
+            angular.module('module.repeat', [])
+                .controller('NestedRepeater', function() {
+                    console.log('NestedController loaded');
+                    this.things = [{ title: 'Hello', stuffs:['i','am','hungry'] }];
+                });
+        </script>
+    </head>
+    <body>
+        <div ng-controller="NestedRepeater as nested">
+            <section ng-repeat="thing in nested.things">
+                <p>{{ thing.title }}</p>
+                <ul>
+                    <li ng-repeat="stuff in thing.stuffs">{{ stuff }}</li>
+                </ul>
+            </section>
+        </div>
+    </body>
+</html>

@@ -7,7 +7,13 @@
         <script src="//maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
         <script src="ng-maps.min.js"></script>
-        <script src="ngMapp.js"></script>
+        <script>
+            angular.module('ngMapp.example', ['ngMaps'])
+                .controller('MappController', function(){
+                    console.info('MappController Loaded')
+                    this.title = "My awesome Map App (Mapp)"
+                });
+        </script>
         <style>
             html, body {
                 height: 100%;

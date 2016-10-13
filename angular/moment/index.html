@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="module.moment">
+    <head>
+        <title>Angular</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+        <script>
+            angular.module('module.moment', [])
+                .filter('startDate', function() {
+                    return (unix) => {
+                        return moment(unix*1000).format('YYYY-DD-MM HH:ss');
+                    }
+                })
+                .controller('controller.funWithTime', function() {
+                    console.log('controller.funWithTime loaded');
+
+                    this.times = [
+                        moment().unix(),
+                        moment().add(1, 'days').unix(),
+                        moment().add(2, 'days').unix(),
+                        moment().add(3, 'days').unix()
+                    ];
+
+                    console.log(this.times);
+                });
+        </script>
+    </head>
+    <body>
+        <div ng-controller="controller.funWithTime as funWithTime">
+            <section ng-repeat="time in funWithTime.times track by $index">
+                <p>{{ time | startDate }}</p>
+            </section>
+        </div>
+    </body>
+</html>

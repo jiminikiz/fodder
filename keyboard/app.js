@@ -1,7 +1,7 @@
 angular.module('app.keymap',[])
     .controller('Game', ['commandFactory', (commandFactory) => {
 
-    })
+    }])
     .factory('monsterFactory', () => {
         var spawned = []
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="module.repeat">
+    <head>
+        <title>Angular</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+        <script>
+            angular.module('module.repeat', [])
+                .controller('StoryController', function() {
+                    console.log('StoryController loaded');
+
+                    this.paths = [{
+                        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        choiceOne: "Run",
+                        choiceTwo: "Stay and Battle",
+                        active: true
+                    },{
+                        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        choiceOne: "Fart",
+                        choiceTwo: "Burp",
+                        active: false
+                    },{
+                        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        choiceOne: "Hide",
+                        choiceTwo: "Spit",
+                        active: false
+                    },{
+                        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        choiceOne: "Think",
+                        choiceTwo: "Get high",
+                        active: false
+                    }];
+
+                    this.choose = function($index, choice) {
+                        this.paths[$index].active = false;
+                        this.paths[$index+choice].active = true;
+                    }
+
+                    this.isActive = function(path) {
+                        // console.info(arguments);
+                        return path.active;
+                    }
+                });
+        </script>
+    </head>
+    <body>
+        <div ng-controller="StoryController as story">
+            <section class="goblin" ng-repeat="path in story.paths | filter:story.isActive">
+                <button type="button">&times;</button
+                <p>{{ path.description }}</p>
+                <div class="choice-one">
+                    <button type="button" ng-click="story.choose($index, 1)">{{ path.choiceOne }}</button>
+                </div>
+                <div class="choice-two">
+                    <button type="button" ng-click="story.choose($index, 2)">{{ path.choiceTwo }}</button>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

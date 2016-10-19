@@ -7,14 +7,14 @@
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
         <script>
             angular.module('module.repeat', [])
-                .controller('NestedRepeater', function() {
+                .controller('controller.repeater', function() {
                     console.log('NestedController loaded');
                     this.things = [{ title: 'Hello', stuffs:['i','am','hungry'] }];
                 });
         </script>
     </head>
     <body>
-        <div ng-controller="NestedRepeater as nested">
+        <div ng-controller="controller.repeater as nested">
             <section ng-repeat="thing in nested.things">
                 <p>{{ thing.title }}</p>
                 <ul>

@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html ng-app="module.autocomplete">
     <head>
-        <title>Angular</title>
+        <title>Autocomplete</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-        <script src="/main.js"></script>
+        <script>
+            angular.module('module.autocomplete', [])
+                .controller('controller.auto', [
+                    '$http',
+                    '$timeout',
+                    function($http, $timeout) {
+                        var AutoCtrl = this;
+
+                        AutoCtrl.search = function(searchTerm) {
+                            return $http.get('/data.json');
+                        };
+
+                        AutoCtrl.searchTerm;
+
+                        AutoCtrl.delay = 250; // 250 milliseconds, or a quarter of a second
+
+                        AutoCtrl.doSearch = function() {
+                            console.debug(AutoCtrl.searchTerm);
+
+                            if( AutoCtrl.searchPromise ) {
+                                $timeout.cancel( AutoCtrl.searchPromise );
+                            }
+                            AutoCtrl.searchPromise = $timeout(function() {
+                                AutoCtrl.search(AutoCtrl.searchTerm)
+                                    .then(AutoCtrl.success, AutoCtrl.error);
+                            }, 250); //
+                        };
+
+                        AutoCtrl.success = function(res) {
+                            AutoCtrl.data = res.data;
+                        };
+
+                        AutoCtrl.error = function(error) {
+                            console.error('Autocomplete error', error);
+                        };
+                    }]);
+        </script>
+        <style>
+
+        </style>
     </head>
     <body>
-        <div ng-controller="Autocompleter as auto">
-            <section class="searchBox">
-                <input type="text" ng-model="auto.searchTerm" ng-keyup="auto.doSearch()"/>
-                <div class="searchDropdown">
-                    <ul>
-                        <li ng-repeat="data in auto.searchData">
-                            <p ng-repeat="attrs in data">
-                                {{ attrs.food_name }}
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+        <div ng-controller="controller.auto as auto">
+            <header>
+                <nav class="searchBox">
+                    <input type="text" ng-model="auto.searchTerm" ng-keyup="auto.doSearch()"/>
+                    <div class="searchDropdown" ng-show="auto.searchTerm">
+                        <ul>
+                            <li ng-repeat="item in auto.data | filter:auto.searchTerm">
+                                {{ item.name }}
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
         </div>
     </body>
 </html>

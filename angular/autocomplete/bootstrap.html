@@ -2,6 +2,7 @@
 <html ng-app="module.autocomplete">
     <head>
         <title>Autocomplete</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
         <script>
             angular.module('module.autocomplete', [])
@@ -36,22 +37,38 @@
                         };
                     }]);
         </script>
+        <style>
+            nav {
+                margin-top: 20px;
+            }
+            #autocomplete input {
+                display: block;
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
         <div ng-controller="controller.auto as auto">
-            <!-- need to model this input and attach a keyup listener so that with every key stroke we queue and eventually fire an autocomplete request -->
-            <input
-                type="text"
-                ng-model="auto.searchTerm"
-                ng-keyup="auto.doSearch()"
-                placeholder="Autocompleted Search"
-            />
-            <ul ng-show="auto.searchTerm">
-                <!-- a simple ng-repeat to spit out the data on the DOM, change this to match your API data -->
-                <li ng-repeat="item in auto.data | filter:auto.searchTerm">
-                    {{ item.name }}
-                </li>
-            </ul>
+            <header class="container-fluid">
+                <nav class="navbar navbar-default">
+                    <form id="autocomplete" class="navbar-form">
+                        <input
+                            class="form-control"
+                            type="text"
+                            ng-model="auto.searchTerm"
+                            ng-keyup="auto.doSearch()"
+                            placeholder="Autocompleted Search"
+                        />
+                    </form>
+                    <aside class="search dropdown" ng-show="auto.searchTerm">
+                        <ul>
+                            <li ng-repeat="item in auto.data | filter:auto.searchTerm">
+                                {{ item.name }}
+                            </li>
+                        </ul>
+                    </aside>
+                </nav>
+            </header>
         </div>
     </body>
 </html>

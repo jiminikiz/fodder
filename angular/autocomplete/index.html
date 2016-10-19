@@ -10,33 +10,29 @@
                     '$http',
                     '$timeout',
                     function($http, $timeout) {
-                        var AutoCtrl = this;
+                        var AutoCtrl = this;  // caching the scope of this controller
 
-                        AutoCtrl.search = function(searchTerm) {
-                            return $http.get('/data.json');
-                        };
-
-                        AutoCtrl.searchTerm;
-
+                        AutoCtrl.searchTerm;  // the ng-model value for the search input
                         AutoCtrl.delay = 250; // 250 milliseconds, or a quarter of a second
 
                         AutoCtrl.doSearch = function() {
-                            console.debug(AutoCtrl.searchTerm);
+                            console.debug(AutoCtrl.searchTerm); // spit out the search term in the console
 
-                            if( AutoCtrl.searchPromise ) {
+                            if( AutoCtrl.searchPromise ) { // if a previous search request is queued, cancel it
                                 $timeout.cancel( AutoCtrl.searchPromise );
                             }
-                            AutoCtrl.searchPromise = $timeout(function() {
-                                AutoCtrl.search(AutoCtrl.searchTerm)
-                                    .then(AutoCtrl.success, AutoCtrl.error);
-                            }, 250); //
+                            AutoCtrl.searchPromise = $timeout(function() { // queue up a new request
+                                $http.get('/data.json') // send the request for data, replace the url here with an autocomplete URL or your own
+                                    .then(AutoCtrl.success, AutoCtrl.error); // success and error callbacks
+                            }, AutoCtrl.delay); //
                         };
 
                         AutoCtrl.success = function(res) {
-                            AutoCtrl.data = res.data;
+                            AutoCtrl.data = res.data; // attach the response to the controller to be interpolated within the HTML below
                         };
 
                         AutoCtrl.error = function(error) {
+                            // if there was an error with the request, log it
                             console.error('Autocomplete error', error);
                         };
                     }]);
@@ -49,9 +45,11 @@
         <div ng-controller="controller.auto as auto">
             <header>
                 <nav class="searchBox">
+                    <!-- need to model this input and attach a keyup listener so that with every key stroke we queue and eventually fire an autocomplete request -->
                     <input type="text" ng-model="auto.searchTerm" ng-keyup="auto.doSearch()"/>
                     <div class="searchDropdown" ng-show="auto.searchTerm">
                         <ul>
+                            <!-- a simple ng-repeat to spit out the data on the DOM, change this to match your API data -->
                             <li ng-repeat="item in auto.data | filter:auto.searchTerm">
                                 {{ item.name }}
                             </li>

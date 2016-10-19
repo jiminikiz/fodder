@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="module.form">
+    <head>
+        <title>Angular</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script>
+            angular.module('module.form', [])
+                .controller('controller.form', ['$timeout', function($timeout) {
+                    this.showValue = false;
+
+                    this.toggleInput = () => {
+                        this.showValue = !this.showValue;
+                        $timeout( () => $('#value').trigger('focus') );
+                    };
+                }]);
+        </script>
+    </head>
+    <body>
+        <div ng-controller="controller.form as form">
+            <form>
+                <p ng-click="form.toggleInput()" ng-hide="form.showValue">Edit me</p>
+                <input
+                    id="value"
+                    class="form-control"
+                    ng-model="form.value"
+                    ng-show="form.showValue"
+                    ng-blur="form.toggleInput()"
+                    placeholder="Enter a value"
+                />
+                <!-- <ng-change></ng-change> -->
+        </div>
+    </body>
+</html>
